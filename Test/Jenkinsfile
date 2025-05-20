@@ -1,6 +1,6 @@
 def JUNIT_JAR_URL = 'https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar'
 def JUNIT_JAR_PATH = 'lib/junit-jupiter-5.7.0.jar'
-def CLASS_DIR = 'src/test/java'
+def CLASS_DIR = 'classes'
 def REPORT_DIR = 'reports'
 
 pipeline {
