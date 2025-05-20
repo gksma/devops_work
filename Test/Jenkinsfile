@@ -44,6 +44,7 @@ pipeline {
                         --class-path ${CLASS_DIR} \
                         --scan-class-path \
                         --reports-dir=${REPORT_DIR}
+                        --details=tree \
                         > ${REPORT_DIR}/test-output.txt 2>&1
                 """
             }
