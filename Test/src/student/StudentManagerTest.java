@@ -31,7 +31,7 @@ class StudentManagerTest {
 	void testAddException() {
 		manage.addStudent("조한흠");
 		assertThrows(IllegalArgumentException.class, () -> {
-			manage.addStudent("조");
+			manage.addStudent("조한흠");
 		});
 	}
 
