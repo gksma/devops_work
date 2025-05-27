@@ -55,17 +55,17 @@ pipeline {
 	    success {
 	        emailext subject: "✅ 빌드 성공",
 	                 body: "성공한 빌드입니다. ${env.BUILD_URL}",
-	                 to: "dhfz1794@naver.com"
+	                 to: "leocho1794@gmail.com"
 	    }
 	    unstable {
 	        emailext subject: "⚠️ 빌드 불안정",
 	                 body: "테스트 일부 실패. ${env.BUILD_URL}",
-	                 to: "dhfz1794@naver.com"
+	                 to: "leocho1794@gmail.com"
 	    }
 	    failure {
 	        emailext subject: "❌ 빌드 실패",
 	                 body: "에러 발생. ${env.BUILD_URL}",
-	                 to: "dhfz1794@naver.com"
+	                 to: "leocho1794@gmail.com"
 	    }
 	}
 }
