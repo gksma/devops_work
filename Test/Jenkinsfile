@@ -7,14 +7,12 @@ pipeline {
     agent any
 
     stages {
-        // 깃허브에서 소스코드를 자동으로 체크아웃 해옴
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        // 테스트 및 컴파일 결과 저장 폴더 생성
         stage('Prepare') {
             steps {
                 sh """
@@ -27,7 +25,6 @@ pipeline {
             }
         }
 
-        // 자바 파일을 .class로 컴파일
         stage('Build') {
             steps {
                 sh """
@@ -62,9 +59,15 @@ pipeline {
         }
         success {
             echo "✅ Build and Test succeeded."
+            emailext subject: "Jenkins 빌드 성공",
+                     body: "Jenkins 빌드가 성공했습니다.\n\n프로젝트: ${env.JOB_NAME}\n빌드번호: ${env.BUILD_NUMBER}\n결과 보기: ${env.BUILD_URL}",
+                     to: "dhfz1794@naver.com"
         }
         failure {
             echo "❌ Build or Test failed."
+            emailext subject: "Jenkins 빌드 실패",
+                     body: "Jenkins 빌드가 실패했습니다.\n\n프로젝트: ${env.JOB_NAME}\n빌드번호: ${env.BUILD_NUMBER}\n로그 확인: ${env.BUILD_URL}",
+                     to: "dhfz1794@naver.com"
         }
     }
 }
