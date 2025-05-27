@@ -51,23 +51,21 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo "[+] Archiving test results..."
-            junit "${REPORT_DIR}/**/*.xml"
-            archiveArtifacts artifacts: "${REPORT_DIR}/**/*", allowEmptyArchive: true
-        }
-        success {
-            echo "✅ Build and Test succeeded."
-            emailext subject: "Jenkins 빌드 성공",
-                     body: "Jenkins 빌드가 성공했습니다.\n\n프로젝트: ${env.JOB_NAME}\n빌드번호: ${env.BUILD_NUMBER}\n결과 보기: ${env.BUILD_URL}",
-                     to: "dhfz1794@naver.com"
-        }
-        failure {
-            echo "❌ Build or Test failed."
-            emailext subject: "Jenkins 빌드 실패",
-                     body: "Jenkins 빌드가 실패했습니다.\n\n프로젝트: ${env.JOB_NAME}\n빌드번호: ${env.BUILD_NUMBER}\n로그 확인: ${env.BUILD_URL}",
-                     to: "dhfz1794@naver.com"
-        }
-    }
+	post {
+	    success {
+	        emailext subject: "✅ 빌드 성공",
+	                 body: "성공한 빌드입니다. ${env.BUILD_URL}",
+	                 to: "dhfz1794@naver.com"
+	    }
+	    unstable {
+	        emailext subject: "⚠️ 빌드 불안정",
+	                 body: "테스트 일부 실패. ${env.BUILD_URL}",
+	                 to: "dhfz1794@naver.com"
+	    }
+	    failure {
+	        emailext subject: "❌ 빌드 실패",
+	                 body: "에러 발생. ${env.BUILD_URL}",
+	                 to: "dhfz1794@naver.com"
+	    }
+	}
 }
