@@ -51,15 +51,9 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo "[+] Archiving artifacts..."
-            archiveArtifacts artifacts: "${REPORT_DIR}/**", allowEmptyArchive: true
-
-            echo "[+] Sending build result email..."
-            mail to: 'leocho1794@gmail.com',
-                subject: "Jenkins Build: ${currentBuild.fullDisplayName} - ${currentBuild.currentResult}",
-                body: """\
+    emailext(
+        subject: "Jenkins Build: ${currentBuild.fullDisplayName} - ${currentBuild.currentResult}",
+        body: """\
     Build result: ${currentBuild.currentResult}
     Project: ${env.JOB_NAME}
     Build Number: ${env.BUILD_NUMBER}
@@ -67,13 +61,8 @@ pipeline {
 
     JUnit test results and output log are attached.
     """,
-                attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml"
-        }
-        success {
-            echo "✅ Build and Test succeeded."
-        }
-        failure {
-            echo "❌ Build or Test failed."
-        }
-    }
+        attachLog: false,
+        attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml",
+        to: "leocho1794@gmail.com"
+    )
 }
