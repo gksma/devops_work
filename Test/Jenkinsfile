@@ -60,13 +60,13 @@ pipeline {
             mail to: 'leocho1794@gmail.com',
                 subject: "Jenkins Build: ${currentBuild.fullDisplayName} - ${currentBuild.currentResult}",
                 body: """\
-    Build result: ${currentBuild.currentResult}
-    Project: ${env.JOB_NAME}
-    Build Number: ${env.BUILD_NUMBER}
-    Build URL: ${env.BUILD_URL}
+            Build result: ${currentBuild.currentResult}
+            Project: ${env.JOB_NAME}
+            Build Number: ${env.BUILD_NUMBER}
+            Build URL: ${env.BUILD_URL}
 
-    JUnit test results and output log are attached.
-    """,
+            JUnit test results and output log are attached.
+            """,
                 // attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml"
         }
         success {
