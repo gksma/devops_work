@@ -67,7 +67,7 @@ pipeline {
 
     JUnit test results and output log are attached.
     """,
-                attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml"
+                // attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml"
         }
         success {
             echo "✅ Build and Test succeeded."
