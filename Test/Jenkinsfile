@@ -75,4 +75,12 @@ pipeline {
 	        )
 	    }
 	}
+
+    post {
+        success {
+            mail to: 'leocho1794@gmail.com',
+                subject: "✅ mail() 빌드 성공 테스트",
+                body: "성공한 빌드입니다. ${env.BUILD_URL}"
+        }
+    }
 }
