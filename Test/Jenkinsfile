@@ -51,18 +51,21 @@ pipeline {
         }
     }
 
-    emailext(
-        subject: "Jenkins Build: ${currentBuild.fullDisplayName} - ${currentBuild.currentResult}",
-        body: """\
-    Build result: ${currentBuild.currentResult}
-    Project: ${env.JOB_NAME}
-    Build Number: ${env.BUILD_NUMBER}
-    Build URL: ${env.BUILD_URL}
-
-    JUnit test results and output log are attached.
-    """,
-        attachLog: false,
-        attachmentsPattern: "${REPORT_DIR}/test-output.txt, ${REPORT_DIR}/TEST-*.xml",
-        to: "leocho1794@gmail.com"
-    )
+	post {
+	    success {
+	        emailext subject: "✅ 빌드 성공",
+	                 body: "성공한 빌드입니다. ${env.BUILD_URL}",
+	                 to: "leocho1794@gmail.com"
+	    }
+	    unstable {
+	        emailext subject: "⚠️ 빌드 불안정",
+	                 body: "테스트 일부 실패. ${env.BUILD_URL}",
+	                 to: "leocho1794@gmail.com"
+	    }
+	    failure {
+	        emailext subject: "❌ 빌드 실패",
+	                 body: "에러 발생. ${env.BUILD_URL}",
+	                 to: "leocho1794@gmail.com"
+	    }
+	}
 }
