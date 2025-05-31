@@ -82,5 +82,14 @@ pipeline {
                 subject: "✅ mail() 빌드 성공 테스트",
                 body: "성공한 빌드입니다. ${env.BUILD_URL}"
         }
+        unstable {
+            mail to: 'leocho1794@gmail.com',
+                subject: "⚠️ mail() 빌드 불안정 테스트",
+                body: "빌드가 불안정합니다. ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'leocho1794@gmail.com',
+                subject: "❌ mail() 빌드 실패 테스트",
+                body: "에러 발생. ${env.BUILD_URL}"
+        }
     }
-}
