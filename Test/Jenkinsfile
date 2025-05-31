@@ -53,19 +53,26 @@ pipeline {
 
 	post {
 	    success {
-	        emailext subject: "✅ 빌드 성공",
-	                 body: "성공한 빌드입니다. ${env.BUILD_URL}",
-	                 to: "leocho1794@gmail.com"
+            emailext(
+                subject: "✅ 빌드 성공",
+                body: "<p>성공한 빌드입니다. <a href='${env.BUILD_URL}'>링크</a></p>",
+                mimeType: 'text/html',
+                to: "leocho1794@gmail.com"
+            )
 	    }
 	    unstable {
-	        emailext subject: "⚠️ 빌드 불안정",
-	                 body: "테스트 일부 실패. ${env.BUILD_URL}",
+	        emailext (subject: "⚠️ 빌드 불안정",
+	                 body: "<p>테스트 일부 실패. <a href='${env.BUILD_URL}'>링크</a></p>",
+	                 mimeType: 'text/html',
 	                 to: "leocho1794@gmail.com"
+            )
 	    }
 	    failure {
-	        emailext subject: "❌ 빌드 실패",
-	                 body: "에러 발생. ${env.BUILD_URL}",
+	        emailext (subject: "❌ 빌드 실패",
+	                 body: "<p>에러 발생. <a href='${env.BUILD_URL}'>링크</a></p>",
+	                 mimeType: 'text/html',
 	                 to: "leocho1794@gmail.com"
+	        )
 	    }
 	}
 }
